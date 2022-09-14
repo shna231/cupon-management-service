@@ -8,6 +8,12 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
+export enum Type {
+  Fee = 'fee',
+  Percent = 'percent',
+  Absolute = 'absolute',
+}
+
 @Entity()
 export class CuponType {
   @PrimaryGeneratedColumn({ comment: '쿠폰 타입 아이디' })
@@ -15,6 +21,9 @@ export class CuponType {
 
   @Column({ comment: '쿠폰 타입 이름', type: 'varchar', length: '20' })
   name: string;
+
+  @Column({ comment: '쿠폰 타입', type: 'enum', enum: Type })
+  type: Type;
 
   @CreateDateColumn({ comment: '생성 시각' })
   createdAt: Date;
