@@ -9,7 +9,8 @@ import {
 } from 'typeorm';
 
 export enum Type {
-  Fee = 'fee',
+  All = 'all',
+  Delivery = 'delivery',
   Percent = 'percent',
   Absolute = 'absolute',
 }
@@ -25,10 +26,13 @@ export class CuponType {
   @Column({ comment: '쿠폰 타입', type: 'enum', enum: Type })
   type: Type;
 
-  @CreateDateColumn({ comment: '생성 시각' })
+  @Column({ comment: '할인비율 또는 할인액', default: null })
+  price: number;
+
+  @CreateDateColumn({ comment: '생성일자' })
   createdAt: Date;
 
-  @Column({ comment: '만료 시각' })
+  @Column({ comment: '만료일자' })
   expirationAt: Date;
 }
 
@@ -46,9 +50,9 @@ export class IssuedCupon {
   @Column({ comment: '할인 금액' })
   price: number;
 
-  @CreateDateColumn({ comment: '발급 시각' })
+  @CreateDateColumn({ comment: '발급일자' })
   createdAt: Date;
 
-  @DeleteDateColumn({ comment: '사용 시각' })
+  @DeleteDateColumn({ comment: '사용일자' })
   deleteAt: Date;
 }
